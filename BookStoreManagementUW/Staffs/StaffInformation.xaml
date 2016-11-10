@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="BookStoreManagementUW.Staffs.StaffInformation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookStoreManagementUW.Staffs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="20,20,20,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock FontSize="30" FontWeight="Bold" Margin="10,10,10,10">
+                    Thông tin của nhân viên
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Image Name="ImageStaff" 
+                           Width="70" Height="100" 
+                           Stretch="UniformToFill" 
+                           Source="ms-appx:///Assets/LockScreenLogo.png" 
+                           Margin="0,0,10,0" >
+                    </Image>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBox Name="StaffName" Text="Nhập vào tên nhân viên"></TextBox>
+                    
+                    <StackPanel  Orientation="Horizontal">
+                        <RadioButton Content="Nam" Name="MaleRadioButton" Tag="Male" Checked="Male_Checked" IsChecked="True"/>
+                        <RadioButton Content="Nữ" Tag="Femal" Checked="Femal_Checked"/>
+                    </StackPanel>
+                    
+                    <DatePicker x:Name="BirthdayStaff" Header="Ngày sinh:"
+                                DayFormat="{}{day.integer} {dayofweek.full}" Margin="5" />
+
+                    <TextBox Name="PhoneNumber" Text="Nhập vào số điện thoại" TextChanged="PhoneNumber_TextChanged"></TextBox>
+                    <TextBox Name="Address" Text="Nhập vào địa chỉ"></TextBox>
+                    <TextBox Name="Describe" Text="Nhập thông tin chú thích"></TextBox>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Click="Add_Click" Margin="0,0,40,0">Thêm</Button>
+                        <Button Click="Cancel_Click" Margin="0,0,40,0">Hủy</Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
