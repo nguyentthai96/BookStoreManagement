@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -52,6 +54,17 @@ namespace BookStoreManagementUW.Staffs
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.GoBack();
+        }
+
+        private async void PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox= sender as TextBox;
+            uint phoneNumber;
+            if (UInt32.TryParse(textBox.Text.Trim(),out phoneNumber)==false)
+            {
+                MessageDialog msgbox = new MessageDialog("Bạn cần nhập số điện thoại đúng định dạng");
+                await msgbox.ShowAsync();
+            }
         }
     }
 }

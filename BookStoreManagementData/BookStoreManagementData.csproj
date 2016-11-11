@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookStoreContext.cs" />
+    <Compile Include="ExtentionMethod.cs" />
     <Compile Include="Migrations\BookStoreContextModelSnapshot.cs" />
     <Compile Include="Migrations\BookStoreDataMigration.cs" />
     <Compile Include="Migrations\BookStoreDataMigration.Designer.cs">

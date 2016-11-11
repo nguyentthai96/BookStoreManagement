@@ -28,22 +28,12 @@ namespace BookStoreManagementUW
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            using (var db = new BookStoreManagementData.BookStoreContext())
-            {
-                Staffs.ItemsSource = db.Staff.ToList();
-            }
+            this.Frame.Navigate(typeof(Books.BookType), null);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new BookStoreManagementData.BookStoreContext())
-            {
-                var staff = new BookStoreManagementData.Models.Staff { StaffName = StaffName.Text };
-                db.Staff.Add(staff);
-                db.SaveChanges();
-
-                Staffs.ItemsSource = db.Staff.ToList();
-            }
+            
         }
     }
 }

@@ -29,8 +29,8 @@
                     <TextBox Name="StaffName" Text="Nhập vào tên nhân viên"></TextBox>
                     
                     <StackPanel  Orientation="Horizontal">
-                        <RadioButton Content="Nam" Name="MaleRadioButton" Tag="Male" Checked="Male_Checked" IsChecked="True"/>
-                        <RadioButton Content="Nữ" Tag="Femal" Checked="Femal_Checked"/>
+                        <RadioButton Content="Nam" Name="MaleRadioButton" Tag="Male" IsChecked="True"/>
+                        <RadioButton Content="Nữ" Tag="Femal"/>
                     </StackPanel>
                     
                     <DatePicker x:Name="BirthdayStaff" Header="Ngày sinh:"
