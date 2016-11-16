@@ -31,6 +31,7 @@ namespace BookStoreManagementData
         {
             optionsBuilder.UseSqlite("Filename=BookStoreDatabase.db");
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<OrderDetail>().HasKey(o =>

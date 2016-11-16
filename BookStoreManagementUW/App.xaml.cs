@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -21,9 +22,21 @@ namespace BookStoreManagementUW
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            bool bExistDatabase = false;
+
             using (var db = new BookStoreManagementData.BookStoreContext())
             {
+                if ((db.GetService<Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator>() as Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator).Exists())
+                {
+                    bExistDatabase = true;
+                }
                 db.Database.Migrate();
+
+                if (!bExistDatabase)
+                {
+                    Initializer.insertData();
+                }
             }
         }
 

@@ -98,6 +98,7 @@
     <Compile Include="Books\BookType.xaml.cs">
       <DependentUpon>BookType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Initializer.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
