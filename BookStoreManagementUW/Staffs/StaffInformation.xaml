@@ -20,7 +20,7 @@
                     <Image Name="ImageStaff" 
                            Width="70" Height="100" 
                            Stretch="UniformToFill" 
-                           Source="ms-appx:///Assets/LockScreenLogo.png" 
+                           Source="ms-appx:///Assets/Images/person.png" 
                            Margin="0,0,10,0" >
                     </Image>
                 </StackPanel>

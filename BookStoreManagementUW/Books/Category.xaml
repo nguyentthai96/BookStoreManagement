@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="BookStoreManagementUW.Books.BookType"
+    x:Class="BookStoreManagementUW.Books.Category"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BookStoreManagementUW.Books"
@@ -12,16 +12,16 @@
         <StackPanel>
                 <TextBlock FontSize="40" FontWeight="Bold" 
                            TextAlignment="Center" Margin="0,50,0,50">
-                    Quản lý loại sách
+                    Quản lý giá sách
                 </TextBlock>
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <TextBlock Text="Danh sách loại sách" FontSize="20"
+                    <TextBlock Text="Danh sách giá sách" FontSize="20"
                                Margin="20,0,20,20" 
                                Width="200"
                                 TextAlignment="Center"/>
-                    <ListView Name="BookTypes" Tapped="BookTypes_Tapped"
+                    <ListView Name="Categorys" Tapped="Categorys_Tapped"
                               Height="500">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -31,7 +31,7 @@
                                             <BitmapIcon UriSource="ms-appx:///Assets/Logo.png"/>
                                         </AppBarButton.Icon>
                                     </AppBarButton>
-                                    <TextBlock Text="{Binding BookTypeName}"/>
+                                    <TextBlock Text="{Binding CategoryName}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -39,11 +39,14 @@
                 </StackPanel>
 
                 <StackPanel Margin="50,0,0,0">
-                    <TextBox Name="BookTypeName" Text="{Binding BookTypeName}"
-                             Header="Tên loại" Width="500">
+                    <TextBox Name="CategoryName" Text="{Binding CategoryName}"
+                             Header="Tên loại giá" Width="500">
                     </TextBox>
                     <TextBox Name="Describe" Text="{Binding Describe}" 
-                             Header="Miêu tả loại" Width="500">
+                             Header="Miêu tả loại giá" Width="500">
+                    </TextBox>
+                    <TextBox Name="StatusCategory" Text="{Binding StatusCategory}" 
+                             Header="Thông tin tình trạng giá" Width="500">
                     </TextBox>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                             Margin="0,20,0,0">

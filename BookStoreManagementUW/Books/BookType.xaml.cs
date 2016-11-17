@@ -31,12 +31,6 @@ namespace BookStoreManagementUW.Books
         {
             using (var db = new BookStoreManagementData.BookStoreContext())
             {
-                //foreach (BookStoreManagementData.Models.CustomModels.BookType item in db.BookType.ToList())
-                //{
-                //    db.Remove<BookStoreManagementData.Models.CustomModels.BookType>(item);
-                    
-                //}
-                //db.SaveChanges();
                 BookTypes.ItemsSource = db.BookType.ToList();
             }
         }
@@ -58,7 +52,7 @@ namespace BookStoreManagementUW.Books
             }
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.GoBack();
         }
@@ -69,6 +63,27 @@ namespace BookStoreManagementUW.Books
             var bookTypeInfor= bookTypeList.ElementAtOrDefault(BookTypes.SelectedIndex);
             BookTypeName.Text = bookTypeInfor.BookTypeName;
             Describe.Text = bookTypeInfor.Describe;
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            var db = new BookStoreManagementData.BookStoreContext();
+            var bookTypeInfor = (db.BookType.ToList()).ElementAtOrDefault(BookTypes.SelectedIndex);
+            bookTypeInfor.BookTypeName = BookTypeName.Text;
+            bookTypeInfor.Describe = Describe.Text;
+            db.SaveChanges();
+            BookTypes.ItemsSource = db.BookType.ToList();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            var db = new BookStoreManagementData.BookStoreContext();
+            
+            //var bookTypeInfor = (db.BookType.ToList()).ElementAtOrDefault();
+            //bookTypeInfor.BookTypeName = BookTypeName.Text;
+            //bookTypeInfor.Describe = Describe.Text;
+            //db.SaveChanges();
+            //BookTypes.ItemsSource = db.BookType.ToList();
         }
     }
 }
