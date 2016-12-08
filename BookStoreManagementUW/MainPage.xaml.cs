@@ -29,8 +29,13 @@ namespace BookStoreManagementUW
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //this.Frame.Navigate(typeof(Books.BookType), null);
-           // this.Frame.Navigate(typeof(Books.Category), null);
-            this.Frame.Navigate(typeof(Staffs.RightStaff), null);
+            // this.Frame.Navigate(typeof(Books.Category), null);
+            //this.Frame.Navigate(typeof(Staffs.RightStaff), null);
+           
+       
+            //this.Frame.Navigate(typeof(Staffs.StaffInformation), new {bAdd=false, StaffID=7});
+            this.Frame.Navigate(typeof(Books.BookSell),null);
+
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

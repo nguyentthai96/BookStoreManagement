@@ -5,15 +5,15 @@
     xmlns:local="using:BookStoreManagementUW.Staffs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="StaffInformation_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Margin="20,20,20,20">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock FontSize="30" FontWeight="Bold" Margin="10,10,10,10">
+        <StackPanel>
+            <TextBlock FontSize="40" FontWeight="Bold" 
+                           TextAlignment="Center" Margin="0,50,0,50">
                     Thông tin của nhân viên
-                </TextBlock>
-            </StackPanel>
+            </TextBlock>
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
@@ -21,28 +21,34 @@
                            Width="70" Height="100" 
                            Stretch="UniformToFill" 
                            Source="ms-appx:///Assets/Images/person.png" 
-                           Margin="0,0,10,0" >
+                           Margin="10,0,10,0" 
+                           Tapped="ImageStaff_Tapped">
                     </Image>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBox Name="StaffName" Text="Nhập vào tên nhân viên"></TextBox>
-                    
+                    <TextBox Name="StaffName" Header="Họ tên nhân viên"/>
+
                     <StackPanel  Orientation="Horizontal">
                         <RadioButton Content="Nam" Name="MaleRadioButton" Tag="Male" IsChecked="True"/>
                         <RadioButton Content="Nữ" Tag="Femal"/>
                     </StackPanel>
                     
                     <DatePicker x:Name="BirthdayStaff" Header="Ngày sinh:"
-                                DayFormat="{}{day.integer} {dayofweek.full}" Margin="5" />
+                                DayFormat="{}{day.integer} {dayofweek.full}"/>
 
-                    <TextBox Name="PhoneNumber" Text="Nhập vào số điện thoại" TextChanged="PhoneNumber_TextChanged"></TextBox>
-                    <TextBox Name="Address" Text="Nhập vào địa chỉ"></TextBox>
-                    <TextBox Name="Describe" Text="Nhập thông tin chú thích"></TextBox>
+                    <TextBox Name="PhoneNumber" Header="Số điện thoại" TextChanged="PhoneNumber_TextChanged"/>
+                    <TextBox Name="Address" Header="Địa chỉ"/>
+                    <TextBox Name="Describe" Header="Thông tin ghi chú"/>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Click="Add_Click" Margin="0,0,40,0">Thêm</Button>
-                        <Button Click="Cancel_Click" Margin="0,0,40,0">Hủy</Button>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                 Margin="0,20,0,0">
+                        <Button Name="Add" Margin="0,0,20,0" 
+                                 Click="Add_Click">Thêm</Button>
+                        <Button Name="Edit" Margin="0,0,20,0" 
+                                Click="Edit_Click">Sửa</Button>
+                        <Button Name="Cancel" Margin="0,0,20,0" 
+                                Click="Cancel_Click">Hủy</Button>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

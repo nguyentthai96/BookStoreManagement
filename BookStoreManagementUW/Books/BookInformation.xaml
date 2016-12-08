@@ -5,8 +5,20 @@
     xmlns:local="using:BookStoreManagementUW.Books"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="BookInformation_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Image x:Name="ImageBook" HorizontalAlignment="Left" Height="450" Margin="70,95,0,0" VerticalAlignment="Top" Width="350"
+               Tapped="ImageBook_Tapped"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="525,30,77,0" TextWrapping="Wrap" Text="Thông tin sách" VerticalAlignment="Top" Height="90" Width="678" FontSize="48" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBox x:Name="BookName" HorizontalAlignment="Left" Margin="525,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="678"
+                  Header="Tựa sách"/>
+        <TextBox x:Name="AuthorBook" HorizontalAlignment="Left" Margin="525,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="678"
+            Header="Tác giả"/>
+        <TextBox x:Name="BookPrice" HorizontalAlignment="Left" Margin="525,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="678"
+            Header="Giá sách"/>
+        <Button x:Name="Add" Content="Thêm" HorizontalAlignment="Left" Height="50" Margin="810,405,0,0" VerticalAlignment="Top" Width="150" Click="Add_Click"/>
+        <Button x:Name="Cancel" Content="Thoát" HorizontalAlignment="Left" Height="50" Margin="1053,405,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.967,0.4" Click="Cancel_Click"/>
     </Grid>
 </Page>

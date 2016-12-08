@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -11,25 +14,34 @@ namespace BookStoreManagementData
 {
    public static class ExtentionMethod
     {
-        public async static Task<byte[]> ImageToBytes(this BitmapImage image)
+        public static async Task<byte[]> AsByteArray(this StorageFile file)
         {
-            RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromUri(image.UriSource);
-            IRandomAccessStreamWithContentType streamWithContent = await streamRef.OpenReadAsync();
-            byte[] buffer = new byte[streamWithContent.Size];
-            await streamWithContent.ReadAsync(buffer.AsBuffer(), (uint)streamWithContent.Size, InputStreamOptions.None);
-            return buffer;
+            IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
+            var reader = new Windows.Storage.Streams.DataReader(fileStream.GetInputStreamAt(0));
+            await reader.LoadAsync((uint)fileStream.Size);
+
+            byte[] pixels = new byte[fileStream.Size];
+
+            reader.ReadBytes(pixels);
+
+            return pixels;
         }
 
-        public async static Task<BitmapImage> ImageFromBytes(this byte[] bytes)
+        public static BitmapImage AsBitmapImage(this byte[] byteArray)
         {
-            BitmapImage image = new BitmapImage();
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            if (byteArray != null)
             {
-                await stream.WriteAsync(bytes.AsBuffer());
-                stream.Seek(0);
-                await image.SetSourceAsync(stream);
+                using (var stream = new InMemoryRandomAccessStream())
+                {
+                    stream.WriteAsync(byteArray.AsBuffer()).GetResults(); // I made this one synchronous on the UI thread; this is not a best practice.
+                    var image = new BitmapImage();
+                    stream.Seek(0);
+                    image.SetSource(stream);
+                    return image;
+                }
             }
-            return image;
+
+            return null;
         }
     }
 }

@@ -10,10 +10,10 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-                <TextBlock FontSize="40" FontWeight="Bold" 
+            <TextBlock FontSize="40" FontWeight="Bold" 
                            TextAlignment="Center" Margin="0,50,0,50">
                     Danh sách các quyền
-                </TextBlock>
+            </TextBlock>
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
@@ -21,16 +21,14 @@
                                Margin="20,0,20,20" 
                                Width="200"
                                 TextAlignment="Center"/>
-                    <ListView Name="RightStaffs" Tapped="RightStaffs_Tapped"
+                    <ListView Name="RightStaffs" 
+                              Tapped="RightStaffs_Tapped"
+                              RightTapped="RightStafs_RightTapped"
                               Height="500">
+
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <AppBarButton Click="Delete_Click" Height="20" Width="20">
-                                        <AppBarButton.Icon>
-                                            <BitmapIcon UriSource="ms-appx:///Assets/Logo.png"/>
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
                                     <TextBlock Text="{Binding RightName}"/>
                                 </StackPanel>
                             </DataTemplate>
@@ -45,21 +43,22 @@
                     <TextBox Name="Describe" Text="{Binding Describe}" 
                              Header="Miêu tả nghiệp vụ" Width="500">
                     </TextBox>
-                    
+
                     <StackPanel Orientation="Horizontal" 
                             Margin="0,20,0,0">
                         <CheckBox Name="StatusRight" IsChecked="True"
                                   Margin="0,0,100,0">Kích hoạt</CheckBox>
-                        <Button Name="Add" Margin="0,0,20,0" 
+                        <Button Name="Add" Margin="0,0,20,0"
                                 Click="Add_Click">Thêm</Button>
                         <Button Name="Edit" Margin="0,0,20,0" 
                                 Click="Edit_Click">Sửa</Button>
                         <Button Name="Cancel" Margin="0,0,50,0" 
                                 Click="Cancel_Click">Hủy</Button>
+                        
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            
+
         </StackPanel>
     </Grid>
 </Page>

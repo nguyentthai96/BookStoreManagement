@@ -98,6 +98,9 @@
     <Compile Include="Books\BookInformation.xaml.cs">
       <DependentUpon>BookInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Books\BookSell.xaml.cs">
+      <DependentUpon>BookSell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Books\BookType.xaml.cs">
       <DependentUpon>BookType.xaml</DependentUpon>
     </Compile>
@@ -109,7 +112,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Staffs\RightStaff.xaml.cs" />
+    <Compile Include="Staffs\RightStaff.xaml.cs">
+      <DependentUpon>RightStaff.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Staffs\StaffInformation.xaml.cs">
       <DependentUpon>StaffInformation.xaml</DependentUpon>
     </Compile>
@@ -121,6 +126,7 @@
     <None Include="BookStoreManagementUW_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\bookImage.jpg" />
     <Content Include="Assets\Images\IconX.png" />
     <Content Include="Assets\Images\person.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -141,6 +147,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Books\BookSell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Books\BookType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,8 +164,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Staffs\RightStaff.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Staffs\StaffInformation.xaml">
       <SubType>Designer</SubType>
@@ -167,6 +177,9 @@
       <Project>{13028bac-76f1-4b72-85c3-04713630681f}</Project>
       <Name>BookStoreManagementData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

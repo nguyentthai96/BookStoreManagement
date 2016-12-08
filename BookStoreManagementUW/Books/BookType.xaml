@@ -26,12 +26,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <AppBarButton Click="Delete_Click" Height="20" Width="20">
-                                        <AppBarButton.Icon>
-                                            <BitmapIcon UriSource="ms-appx:///Assets/Logo.png"/>
-                                        </AppBarButton.Icon>
-                                    </AppBarButton>
                                     <TextBlock Text="{Binding BookTypeName}"/>
+                                    <AppBarButton Click="Delete_Click"  Label="Delete"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
