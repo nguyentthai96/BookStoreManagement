@@ -15,24 +15,44 @@
                     Bán lẻ sách
             </TextBlock>
 
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Height="550" Width="550">
+            <StackPanel Orientation="Horizontal" Margin="50,0,50,0">
+                <StackPanel Height="520" Width="550">
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Name="SearchBox" Header="Tên sách cần tìm" Width="380" HorizontalAlignment="Left" Margin="40,0,0,0"/>
-                        <Button Margin="50,25,0,0" Click="Button_Click">Tìm kiếm</Button>
+                        <TextBox Name="SearchBox" Header="Tên sách cần tìm" Width="380" 
+                                 HorizontalAlignment="Left" Margin="40,0,0,0"
+                                 TextChanged="Search_TextChanged"/>
                     </StackPanel>
                     <TextBlock Text="Danh sách tìm kiếm" FontSize="20"
                                Margin="20,30,20,20" 
                                Width="200"
                                 TextAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Mã sách" Width="60" 
+                                   Margin="20,0,0,0"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Tên sách" Width="280"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Số lượng" Width="60"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Đơn giá" Width="105"
+                                   HorizontalAlignment="Right"
+                                    TextAlignment="Center"/>
+                    </StackPanel>
                     <ListView x:Name="BookList">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal"
                                             Tapped="ItemBook_Tapped">
-                                    <TextBlock Text="{Binding BookID}" Width="60"/>
-                                    <TextBlock Text="{Binding BookName}" Width="300"/>
-                                    <TextBlock Text="{Binding BookPrice}" Width="100" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="{Binding BookID}" Width="60"
+                                               Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding BookName}" 
+                                               Width="270"
+                                               Margin="5,0,5,0"/>
+                                    <TextBlock Text="{Binding BookCount}" 
+                                               Width="40" />
+                                    <TextBlock Text="{Binding BookPrice}" Width="70" 
+                                               TextAlignment="Right"
+                                               Margin="5,0,5,0"/>
                                     <TextBlock Text="VNĐ"/>
                                 </StackPanel>
                             </DataTemplate>
@@ -41,26 +61,94 @@
                 </StackPanel>
 
                 <StackPanel >
-                    <TextBlock Text="Danh sách sách mua" FontSize="20"
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="Danh sách sách mua" FontSize="20"
                                Margin="20,0,20,20" 
                                Width="200"
-                                TextAlignment="Center"/>
-                    <ListView x:Name="BookBuy" 
-                              Height="500" Margin="0,0,640,0">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding BookTypeName}"/>
-                                    <AppBarButton Label="Delete"/>
+                               TextAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Mã sách" Width="60" 
+                                   Margin="20,0,0,0"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Tên sách" Width="280"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Số lượng" Width="60"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Đơn giá" Width="105"
+                                   HorizontalAlignment="Right"
+                                    TextAlignment="Center"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ListView x:Name="BookBuyList" 
+                              ItemsSource="{Binding listBookBuy}"
+                                Height="280" 
+                              >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" x:Name="item">
+                                        <TextBlock Text="{Binding Path=BookID}" Width="60"
+                                               Margin="10,0,0,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Path=BookName}" 
+                                               Width="270"
+                                               Margin="5,0,5,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox Text="{Binding Path=BookCount}" 
+                                             InputScope="Number"  
+                                             BorderBrush="AliceBlue"
+                                             Width="40" 
+                                             KeyDown="BookCount_KeyDown" 
+                                             LostFocus="BookCount_LostFocus"
+                                                 VerticalAlignment="Center"
+                                             />
+                                        <TextBlock Text="{Binding Path=BookPrice}" Width="70" 
+                                               TextAlignment="Right"
+                                               Margin="5,0,5,0"
+                                                   VerticalAlignment="Center"
+                                                   />
+                                        <TextBlock Text="VNĐ"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="X" TextAlignment="Center" TextLineBounds="Full"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                   Margin="10,0,10,0"
+                                                   Tapped="Remove_Taped"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+                                    <TextBlock Text="Tổng số tiền:" Margin="0,0,15,0"/>
+                                    <TextBlock Name="SumMoney"/>
                                 </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                <TextBox Name="CustomerName"
+                                    Header="Tên khách hàng"
+                                     Width="400"
+                                    />
+                                <TextBox Name="PhoneNumberCustomer"
+                                         Header="Số ĐT" 
+                                         Width="400"
+                                          InputScope="TelephoneNumber"
+                                           KeyDown="TelephoneNumber_KeyDown" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Bottom">
+                                <Button Name="PrintOrder" Width="120"
+                                        Margin="30,0,0,30" Click="PrintOrder_Click">
+                                    In hóa đơn</Button>
+                                <Button Width="120"
+                                        Margin="30,0,0,0" 
+                                        Click="Cancel_Click">
+                                    Hủy đơn hàng</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
+            </StackPanel>
 
-
-            </StackPanel>            
-            
         </StackPanel>
     </Grid>
 </Page>
