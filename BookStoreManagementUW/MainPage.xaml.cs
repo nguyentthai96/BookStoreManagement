@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookStoreManagementData;
+using BookStoreManagementData.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,10 +33,15 @@ namespace BookStoreManagementUW
             //this.Frame.Navigate(typeof(Books.BookType), null);
             // this.Frame.Navigate(typeof(Books.Category), null);
             //this.Frame.Navigate(typeof(Staffs.RightStaff), null);
-           
-       
+
+
             //this.Frame.Navigate(typeof(Staffs.StaffInformation), new {bAdd=false, StaffID=7});
-            this.Frame.Navigate(typeof(Books.BookSell),null);
+            using (var db = new BookStoreContext())
+            {
+                var account = db.Account.SingleOrDefault(a => a.AccountID == "thungan1" && a.Password=="ntt123");
+                Staff staff=db.Staff.SingleOrDefault(s=>s.AccountID==account.AccountID);
+                this.Frame.Navigate(typeof(Books.BookSell), staff);
+            }
 
         }
 

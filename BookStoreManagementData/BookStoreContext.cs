@@ -29,9 +29,8 @@ namespace BookStoreManagementData
         #endregion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=BookStoreDatabase.db");
+            optionsBuilder.UseSqlite("Filename=BookStoreDatabasenewaaa.db");
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<OrderDetail>().HasKey(o =>
@@ -63,7 +62,6 @@ namespace BookStoreManagementData
             builder.Entity<StaffRight>()
                 .HasOne(b => b.Right);
 
-
             builder.Entity<Models.CustomModels.BookReceipt>().HasKey(o =>
                 new
                 {
@@ -79,6 +77,19 @@ namespace BookStoreManagementData
                 .HasOne(b => b.Receipt)
                 .WithMany(o => o.BookReceipts)
                 .HasForeignKey(pc => pc.ReceiptID);
+
+            builder.Entity<Staff>()
+           .HasOne(p => p.Account)
+           .WithOne(i => i.Staff)
+           .HasForeignKey<Staff>(b => b.AccountID);
+
+
+            builder.Entity<Account>()
+           .HasMany(p => p.StaffRights)
+           .WithOne(i => i.Account);
+            builder.Entity<StaffRight>()
+          .HasOne(p => p.Account)
+          .WithMany(i => i.StaffRights);
         }
     }
 }

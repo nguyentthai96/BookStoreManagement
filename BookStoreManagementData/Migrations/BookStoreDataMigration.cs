@@ -24,6 +24,21 @@ namespace BookStoreManagementData.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Account",
+                columns: table => new
+                {
+                    AccountID = table.Column<string>(nullable: false),
+                    DayofCreate = table.Column<DateTime>(nullable: false),
+                    Describe = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    StatusAccount = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Account", x => x.AccountID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BookType",
                 columns: table => new
                 {
@@ -100,26 +115,6 @@ namespace BookStoreManagementData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Staff",
-                columns: table => new
-                {
-                    StaffID = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    Address = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    Describe = table.Column<string>(nullable: true),
-                    Gender = table.Column<bool>(nullable: false),
-                    ImageStaff = table.Column<byte[]>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    StaffName = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Staff", x => x.StaffID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -142,6 +137,61 @@ namespace BookStoreManagementData.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Staff",
+                columns: table => new
+                {
+                    StaffID = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    AccountID = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    Describe = table.Column<string>(nullable: true),
+                    Gender = table.Column<bool>(nullable: false),
+                    ImageStaff = table.Column<byte[]>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    StaffName = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Staff", x => x.StaffID);
+                    table.ForeignKey(
+                        name: "FK_Staff_Account_AccountID",
+                        column: x => x.AccountID,
+                        principalTable: "Account",
+                        principalColumn: "AccountID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StaffRight",
+                columns: table => new
+                {
+                    RightID = table.Column<int>(nullable: false),
+                    AccountID = table.Column<string>(nullable: false),
+                    DateGrant = table.Column<DateTime>(nullable: false),
+                    Describe = table.Column<string>(nullable: true),
+                    RightID1 = table.Column<int>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffRight", x => new { x.RightID, x.AccountID });
+                    table.ForeignKey(
+                        name: "FK_StaffRight_Account_AccountID",
+                        column: x => x.AccountID,
+                        principalTable: "Account",
+                        principalColumn: "AccountID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StaffRight_Right_RightID1",
+                        column: x => x.RightID1,
+                        principalTable: "Right",
+                        principalColumn: "RightID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Receipt",
                 columns: table => new
                 {
@@ -160,28 +210,6 @@ namespace BookStoreManagementData.Migrations
                         column: x => x.ProviderID,
                         principalTable: "Provider",
                         principalColumn: "ProviderID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Account",
-                columns: table => new
-                {
-                    AccountID = table.Column<string>(nullable: false),
-                    DayofCreate = table.Column<DateTime>(nullable: false),
-                    Describe = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    StaffID = table.Column<int>(nullable: false),
-                    StatusAccount = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Account", x => x.AccountID);
-                    table.ForeignKey(
-                        name: "FK_Account_Staff_StaffID",
-                        column: x => x.StaffID,
-                        principalTable: "Staff",
-                        principalColumn: "StaffID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -240,34 +268,6 @@ namespace BookStoreManagementData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StaffRight",
-                columns: table => new
-                {
-                    RightID = table.Column<int>(nullable: false),
-                    AccountID = table.Column<string>(nullable: false),
-                    DateGrant = table.Column<DateTime>(nullable: false),
-                    Describe = table.Column<string>(nullable: true),
-                    RightID1 = table.Column<int>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StaffRight", x => new { x.RightID, x.AccountID });
-                    table.ForeignKey(
-                        name: "FK_StaffRight_Account_AccountID",
-                        column: x => x.AccountID,
-                        principalTable: "Account",
-                        principalColumn: "AccountID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StaffRight_Right_RightID1",
-                        column: x => x.RightID1,
-                        principalTable: "Right",
-                        principalColumn: "RightID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookReceipt",
                 columns: table => new
                 {
@@ -297,7 +297,7 @@ namespace BookStoreManagementData.Migrations
                 name: "OrderDetail",
                 columns: table => new
                 {
-                    BookID = table.Column<int>(nullable: false),
+                    BookID = table.Column<string>(nullable: false),
                     OrderID = table.Column<int>(nullable: false),
                     BookID1 = table.Column<string>(nullable: true),
                     DescribeOrderBookDetail = table.Column<string>(nullable: true),
@@ -354,11 +354,6 @@ namespace BookStoreManagementData.Migrations
                 column: "ReceiptID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Account_StaffID",
-                table: "Account",
-                column: "StaffID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookReceipt_BookID",
                 table: "BookReceipt",
                 column: "BookID");
@@ -402,6 +397,12 @@ namespace BookStoreManagementData.Migrations
                 name: "IX_Receipt_ProviderID",
                 table: "Receipt",
                 column: "ProviderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staff_AccountID",
+                table: "Staff",
+                column: "AccountID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -422,7 +423,7 @@ namespace BookStoreManagementData.Migrations
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Account");
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "Right");
@@ -443,7 +444,7 @@ namespace BookStoreManagementData.Migrations
                 name: "Customer");
 
             migrationBuilder.DropTable(
-                name: "Staff");
+                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "Provider");

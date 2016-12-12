@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStoreManagementData.Models.CustomModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,6 @@ namespace BookStoreManagementData.Models
     {
         public Staff()
         {
-            Accounts = new HashSet<CustomModels.Account>();
             OrderDetails = new HashSet<CustomModels.OrderDetail>();
 
         }
@@ -21,9 +21,9 @@ namespace BookStoreManagementData.Models
         public bool Status { get; set; }
         public string Address { get; set; }
         public string Describe { get; set; }
-        
-        public virtual ICollection<CustomModels.Account> Accounts { get; set; }
-        //NTT-Delete
+
+        public string AccountID { get; set; }
+        public virtual Account Account { get; set; }
         public virtual ICollection<CustomModels.OrderDetail> OrderDetails { get; set; }
     }
 }

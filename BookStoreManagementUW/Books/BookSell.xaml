@@ -60,7 +60,7 @@
                     </ListView>
                 </StackPanel>
 
-                <StackPanel >
+                <StackPanel x:Name="ListBuyStackPanel">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="Danh sách sách mua" FontSize="20"
                                Margin="20,0,20,20" 
@@ -145,6 +145,111 @@
                                     Hủy đơn hàng</Button>
                             </StackPanel>
                         </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Visibility="Collapsed"
+                            x:Name="ReceiptStackPanel"
+                            Height="520"
+                            Width="460">
+                    <TextBlock Text="CỬA HÀNG SÁCH TP. HỒ CHÍ MINH" 
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               TextAlignment="Center"/>
+                    <TextBlock Text="CHI NHÁNH CỬA HÀNG QUẬN THỦ ĐỨC"
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               TextAlignment="Center"/>
+                    <TextBlock Text="Địa chỉ:            Số 1, Võ Văn Ngân, Q. Thủ Đức"
+                               TextAlignment="Left"
+                               Margin="20,10,0,0"/>
+                    <TextBlock Text="Điện thoại:      0800000"
+                               TextAlignment="Left"
+                               Margin="20,0,0,0"/>
+
+                    <TextBlock Text="HÓA ĐƠN BÁN LẺ"
+                               FontSize="22" 
+                               FontWeight="Bold"
+                               TextAlignment="Center"
+                               Margin="0,30,0,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="Số HD:"
+                                   Width="100"/>
+                        <TextBlock Name="OrderID"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Width="450"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="Ngày bán:"
+                               Width="100"/>
+                        <TextBlock Name="OrderDaySell"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="450"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="Nhân viên:"
+                               Width="100"/>
+                        <TextBlock Name="StaffOrder"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Width="450"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="Khách hàng:"
+                                Width="100"/>
+                        <TextBlock Name="CustomerNameOrderView"/>
+                    </StackPanel>
+                    <TextBlock Text="--------------------------------------------------------------"
+                               TextAlignment="Center"/>
+
+                    <ListView x:Name="OrderBookListView" 
+                              ItemsSource="{Binding listBookBuy}" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel x:Name="itemBook"
+                                            Width="460">
+                                    <TextBlock Text="{Binding Book.BookName}"
+                               TextAlignment="Center" 
+                                               Width="460"/>
+                                    <StackPanel Orientation="Horizontal"
+                                                Width="460">
+                                        <TextBlock Text="{Binding Book.BookID}"
+                               Width="80"/>
+                                        <TextBlock Text="{Binding Book.BookPrice}"
+                              Width="120"/>
+                                        <TextBlock Text="{Binding Quantity}"
+                               Width="100"/>
+                                        <TextBlock Text="{Binding Money}"
+                               Width="150"
+                                HorizontalAlignment="Right"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <TextBlock Text="--------------------------------------------------------------"
+                               TextAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="30,20,0,0">
+                        <TextBlock Text="Tổng cộng:"
+                                   Width="180"/>
+                        <TextBlock Name="QuantityBookSum"
+                                   Width="100"/>
+                        <TextBlock Name="OrderValueSum"
+                               HorizontalAlignment="Right"
+                                   Width="150"/>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Right"
+                                Margin="0,30,0,0">
+                        <Button Content="Hoàn thành"
+                                Margin="0,0,50,0"
+                                Width="100"
+                                Click="Finish_Click"/>
+                        <Button Content="Hủy"
+                                Width="100"
+                                Click="CancelFinish_Click"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

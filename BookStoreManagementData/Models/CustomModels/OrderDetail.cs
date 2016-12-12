@@ -13,7 +13,7 @@ namespace BookStoreManagementData.Models.CustomModels
         [Key, Column(Order = 0)]
         public int OrderID { get; set; }
         [Key, Column(Order = 1)]
-        public int BookID { get; set; }
+        public string BookID { get; set; }
         public int Quantity { get; set; }
         public double Money { get; set; }
         public string DescribeOrderBookDetail { get; set; }

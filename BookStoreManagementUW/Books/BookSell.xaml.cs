@@ -1,9 +1,11 @@
 ﻿using BookStoreManagementData;
 using BookStoreManagementData.Models;
+using BookStoreManagementData.Models.CustomModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,10 +30,19 @@ namespace BookStoreManagementUW.Books
     {
         private BookStoreContext db;
         private static List<Book> listBookBuy;
+        private Order order;
+        private Staff staff;
+        private Customer customer;
         public BookSell()
         {
             listBookBuy = new List<Book>();
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.staff = (Staff)e.Parameter;
+            
         }
 
         private void BookSell_Loaded(object sender, RoutedEventArgs e)
@@ -167,82 +178,97 @@ namespace BookStoreManagementUW.Books
             SumMoney.Text = listBookBuy.Sum(s => (s.BookCount * s.BookPrice)).ToString() +"  VNĐ";
         }
 
-        private void PrintOrder_Click(object sender, RoutedEventArgs e)
+        private async void PrintOrder_Click(object sender, RoutedEventArgs e)
         {
-          //  PrinterFormOld();
+            if (PhoneNumberCustomer.Text == "" || CustomerName.Text == "")
+            {
+                MessageDialog mes = new MessageDialog("Bạn nhập thiếu tên khách hàng hoặc số điện thoại");
+                await mes.ShowAsync();
+                return;
+            }
 
+            OrderData();
+
+            //db.Order.Add(order);
+            ListBuyStackPanel.Visibility = Visibility.Collapsed;
+            ReceiptStackPanel.Visibility = Visibility.Visible;
+            ViewData();
         }
 
-        //private void PrinterFormOld()
-        //{
-        //    try
-        //    {
-        //        System.Windows.Forms.PrintDialog _PrintDialog = new System.Windows.Forms.PrintDialog();
-        //        System.Drawing.Printing.PrintDocument _PrintDocument = new System.Drawing.Printing.PrintDocument();
+        private void ViewData()
+        {
+            OrderID.Text=order.OrderID.ToString();
+            OrderDaySell.Text = order.OrderDay.ToString("dd / MM / yyyy");
+            StaffOrder.Text = staff.StaffName;
+            CustomerNameOrderView.Text = customer.CustomerName;
 
-        //        _PrintDialog.Document = _PrintDocument; //add the document to the dialog box
+            OrderBookListView.ItemsSource = order.OrderDetails;
+            
+            QuantityBookSum.Text = order.OrderDetails.ToList().Sum(b=>b.Quantity).ToString();
+            OrderValueSum.Text = order.OrderValueSum.ToString() + "  VNĐ";
+        }
 
-        //        _PrintDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(_CreateReceipt); //add an event handler that will do the printing
-        //        on a till you will not want to ask the user where to print but this is fine for the test envoironment.
-        //        _PrintDocument.Print();
-        //    }
-        //    catch (Exception)
-        //    {
+        private void OrderData()
+        {
+            #region Check customer existed, inilizer customer and save custommer new
+            using (var dbCustomer = new BookStoreContext())
+            {
+                customer= dbCustomer.Customer.ToList().Find(c => c.CustomerPhoneID == PhoneNumberCustomer.Text.Trim());
+                if (customer==null)
+                {
+                    customer = new Customer();
+                    customer.CustomerPhoneID = PhoneNumberCustomer.Text;
+                    customer.CustomerName = CustomerName.Text;
+                    dbCustomer.Customer.Add(customer);
+                    dbCustomer.SaveChanges();
+                }
+            }
+            #endregion
 
-        //    }
-        //}
+            #region create order new, none sumMoney
+            order = new Order()
+            {
+                OrderDay = DateTime.Now.Date,
+                Customer = customer,
+                CustomerPhoneID = customer.CustomerPhoneID,
+            };
+            #endregion
 
-        //private void _CreateReceipt(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        //{
-        //    Graphics graphic = e.Graphics;
-        //    Font font = new Font("Courier New", 12);
-        //    float FontHeight = font.GetHeight();
-        //    int startX = 10;
-        //    int startY = 10;
-        //    int offset = 40;
+            #region create list order and summonney all book buy
+            List<OrderDetail> orderList = new List<OrderDetail>();
+            double sumMonneyOrder = 0;
+            foreach (Book bookItem in listBookBuy)
+            {
+                OrderDetail orderDetail = CreateOrderDetail(order, bookItem);
+                orderList.Add(orderDetail);
+                sumMonneyOrder += orderDetail.Money;
+            }
+            #endregion
+            order.OrderValueSum = sumMonneyOrder;
+            order.OrderDetails = orderList;
+        }
 
-        //    graphic.DrawString("COPPY TỚI RÙI TỚI LẠI", new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY);
-        //    string top = "Tên Sản Phẩm".PadRight(24) + "Thành Tiền";
-        //    graphic.DrawString(top, font, new SolidBrush(Color.Black), startX, startY + offset);
-        //    offset = offset + (int)FontHeight; //make the spacing consistent
-        //    graphic.DrawString("----------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
-        //    offset = offset + (int)FontHeight + 5; //make the spacing consistent
-
-        //    int index = 0;
-        //    foreach (string item in lsbTenSanPham.Items)
-        //    {
-        //        graphic.DrawString(item, font, new SolidBrush(Color.Black), startX, startY + offset);
-        //        graphic.DrawString(lsbThanhTien.Items[index++].ToString(), font, new SolidBrush(Color.Black), startX + 250, startY + offset);
-        //        offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-        //    }
-
-        //    offset = offset + 20; //make some room so that the total stands out.
-
-        //    graphic.DrawString("TỔNG TIỀN TRẢ ", new Font("Courier New", 12, FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
-        //    graphic.DrawString(_DoiSoSangDonViTienTe(nudTongTien.Value), new Font("Courier New", 12, FontStyle.Bold), new SolidBrush(Color.Black), startX + 250, startY + offset);
-
-        //    offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-        //    graphic.DrawString("TIỀN MẶT ", font, new SolidBrush(Color.Black), startX, startY + offset);
-        //    graphic.DrawString(_DoiSoSangDonViTienTe(nudTienMat.Value), font, new SolidBrush(Color.Black), startX + 250, startY + offset);
-
-        //    offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-        //    graphic.DrawString("TIỀN TRẢ ", font, new SolidBrush(Color.Black), startX, startY + offset);
-        //    graphic.DrawString(_DoiSoSangDonViTienTe(nudTienTra.Value), font, new SolidBrush(Color.Black), startX + 250, startY + offset);
-
-        //    offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-        //    graphic.DrawString(" CẢM ƠN BẠN ĐÃ GHÉ THĂM!,", font, new SolidBrush(Color.Black), startX, startY + offset);
-        //    offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-        //    graphic.DrawString("HI VỌNG BẠN SẼ GHÉ THĂM LẠI!", font, new SolidBrush(Color.Black), startX, startY + offset);
-        //}
-
+        private OrderDetail CreateOrderDetail(Order order, Book book)
+        {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.Book = book;
+            orderDetail.BookID = book.BookID;
+            orderDetail.OrderID = order.OrderID;
+            orderDetail.StaffID = staff.StaffID;
+            orderDetail.Quantity = (int)book.BookCount;
+            orderDetail.Money = book.BookCount * book.BookPrice;
+            orderDetail.Staff = staff;
+            // using (var dbOrder = new BookStoreContext())
+            //{
+            //   dbOrder.OrderDetail.Add(orderDetail);
+            //   dbOrder.SaveChanges();
+            //}
+            return orderDetail;
+        }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            db = new BookStoreContext();
-            BookList.ItemsSource = db.Book.ToList();
-            listBookBuy = new List<Book>();
-            BookBuyList.ItemsSource = listBookBuy;
-            SumMoney.Text = "";
+            ResetView();
         }
 
         private void TelephoneNumber_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -251,6 +277,52 @@ namespace BookStoreManagementUW.Books
             {
                 e.Handled = true;
             }
+        }
+
+        private void Finish_Click(object sender, RoutedEventArgs e)
+        {
+            db.SaveChanges();
+            Order orderSave = new Order();
+            orderSave.CustomerPhoneID = order.CustomerPhoneID;
+            orderSave.OrderDay = order.OrderDay;
+            orderSave.OrderValueSum = order.OrderValueSum;
+            var orderSaveDB=db.Order.Add(orderSave);
+            db.SaveChanges();
+
+            foreach (OrderDetail orderDetail in order.OrderDetails)
+            {
+                OrderDetail orderDetailSave = new OrderDetail();
+                orderDetailSave.BookID = orderDetail.BookID;
+                orderDetailSave.Money = orderDetail.Money;
+                orderDetailSave.OrderID = orderSaveDB.Entity.OrderID;
+                orderDetailSave.Quantity = orderDetail.Quantity;
+                orderDetailSave.StaffID = orderDetail.StaffID;
+                using (var dbSaveOrderDetail = new BookStoreContext())
+                {
+                    dbSaveOrderDetail.OrderDetail.Add(orderDetailSave);
+                    dbSaveOrderDetail.SaveChanges();
+                }
+            }
+
+            ResetView();
+        }
+
+        private void CancelFinish_Click(object sender, RoutedEventArgs e)
+        {
+            ResetView();
+        }
+
+        private void ResetView()
+        {
+            db = new BookStoreContext();
+            BookList.ItemsSource = db.Book.ToList();
+            listBookBuy = new List<Book>();
+            BookBuyList.ItemsSource = listBookBuy;
+            SumMoney.Text = "";
+            CustomerName.Text = "";
+            PhoneNumberCustomer.Text = "";
+            ListBuyStackPanel.Visibility = Visibility.Visible;
+            ReceiptStackPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

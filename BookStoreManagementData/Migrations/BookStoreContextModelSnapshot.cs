@@ -16,398 +16,398 @@ namespace BookStoreManagementData.Migrations
                 .HasAnnotation("ProductVersion", "1.0.1");
 
             modelBuilder.Entity("BookStoreManagementData.Models.Book", b =>
-                {
-                    b.Property<string>("BookID");
+            {
+                b.Property<string>("BookID");
 
-                    b.Property<string>("AuthorBook");
+                b.Property<string>("AuthorBook");
 
-                    b.Property<long>("BookCount");
+                b.Property<long>("BookCount");
 
-                    b.Property<byte[]>("BookCoverImage");
+                b.Property<byte[]>("BookCoverImage");
 
-                    b.Property<string>("BookName");
+                b.Property<string>("BookName");
 
-                    b.Property<long>("BookPage");
+                b.Property<long>("BookPage");
 
-                    b.Property<double>("BookPrice");
+                b.Property<double>("BookPrice");
 
-                    b.Property<string>("BookStatus");
+                b.Property<string>("BookStatus");
 
-                    b.Property<int>("BookTypeID");
+                b.Property<int>("BookTypeID");
 
-                    b.Property<int>("CategoryID");
+                b.Property<int>("CategoryID");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<int?>("ProviderID");
+                b.Property<int?>("ProviderID");
 
-                    b.Property<int>("PublisherID");
+                b.Property<int>("PublisherID");
 
-                    b.Property<int?>("ReceiptID");
+                b.Property<int?>("ReceiptID");
 
-                    b.HasKey("BookID");
+                b.HasKey("BookID");
 
-                    b.HasIndex("BookTypeID");
+                b.HasIndex("BookTypeID");
 
-                    b.HasIndex("CategoryID");
+                b.HasIndex("CategoryID");
 
-                    b.HasIndex("ProviderID");
+                b.HasIndex("ProviderID");
 
-                    b.HasIndex("PublisherID");
+                b.HasIndex("PublisherID");
 
-                    b.HasIndex("ReceiptID");
+                b.HasIndex("ReceiptID");
 
-                    b.ToTable("Book");
-                });
+                b.ToTable("Book");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Customer", b =>
-                {
-                    b.Property<string>("CustomerPhoneID")
-                        .HasMaxLength(12);
+            {
+                b.Property<string>("CustomerPhoneID")
+                    .HasMaxLength(12);
 
-                    b.Property<string>("Address");
+                b.Property<string>("Address");
 
-                    b.Property<string>("CustomerName");
+                b.Property<string>("CustomerName");
 
-                    b.Property<DateTime>("DayFirstPurchase");
+                b.Property<DateTime>("DayFirstPurchase");
 
-                    b.Property<string>("Decribe");
+                b.Property<string>("Decribe");
 
-                    b.Property<bool>("FriendlyCustomer");
+                b.Property<bool>("FriendlyCustomer");
 
-                    b.HasKey("CustomerPhoneID");
+                b.HasKey("CustomerPhoneID");
 
-                    b.ToTable("Customer");
-                });
+                b.ToTable("Customer");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.Account", b =>
-                {
-                    b.Property<string>("AccountID");
+            {
+                b.Property<string>("AccountID");
 
-                    b.Property<DateTime>("DayofCreate");
+                b.Property<DateTime>("DayofCreate");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<string>("Password");
+                b.Property<string>("Password");
 
-                    b.Property<int>("StaffID");
+                b.Property<bool>("StatusAccount");
 
-                    b.Property<bool>("StatusAccount");
+                b.HasKey("AccountID");
 
-                    b.HasKey("AccountID");
-
-                    b.HasIndex("StaffID");
-
-                    b.ToTable("Account");
-                });
+                b.ToTable("Account");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.BookReceipt", b =>
-                {
-                    b.Property<string>("BookID");
+            {
+                b.Property<string>("BookID");
 
-                    b.Property<int>("ReceiptID");
+                b.Property<int>("ReceiptID");
 
-                    b.Property<string>("DescribeReceiptBookDetail");
+                b.Property<string>("DescribeReceiptBookDetail");
 
-                    b.Property<long>("Quantity");
+                b.Property<long>("Quantity");
 
-                    b.HasKey("BookID", "ReceiptID");
+                b.HasKey("BookID", "ReceiptID");
 
-                    b.HasIndex("BookID");
+                b.HasIndex("BookID");
 
-                    b.HasIndex("ReceiptID");
+                b.HasIndex("ReceiptID");
 
-                    b.ToTable("BookReceipt");
-                });
+                b.ToTable("BookReceipt");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.BookType", b =>
-                {
-                    b.Property<int>("BookTypeID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("BookTypeID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BookTypeName");
+                b.Property<string>("BookTypeName");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.HasKey("BookTypeID");
+                b.HasKey("BookTypeID");
 
-                    b.ToTable("BookType");
-                });
+                b.ToTable("BookType");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.Category", b =>
-                {
-                    b.Property<int>("CategoryID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("CategoryID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CategoryName");
+                b.Property<string>("CategoryName");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<string>("StatusCategory");
+                b.Property<string>("StatusCategory");
 
-                    b.HasKey("CategoryID");
+                b.HasKey("CategoryID");
 
-                    b.ToTable("Category");
-                });
+                b.ToTable("Category");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.OrderDetail", b =>
-                {
-                    b.Property<int>("BookID");
+            {
+                b.Property<string>("BookID");
 
-                    b.Property<int>("OrderID");
+                b.Property<int>("OrderID");
 
-                    b.Property<string>("BookID1");
+                b.Property<string>("BookID1");
 
-                    b.Property<string>("DescribeOrderBookDetail");
+                b.Property<string>("DescribeOrderBookDetail");
 
-                    b.Property<double>("Money");
+                b.Property<double>("Money");
 
-                    b.Property<int>("Quantity");
+                b.Property<int>("Quantity");
 
-                    b.Property<int>("StaffID");
+                b.Property<int>("StaffID");
 
-                    b.HasKey("BookID", "OrderID");
+                b.HasKey("BookID", "OrderID");
 
-                    b.HasIndex("BookID1");
+                b.HasIndex("BookID1");
 
-                    b.HasIndex("OrderID");
+                b.HasIndex("OrderID");
 
-                    b.HasIndex("StaffID");
+                b.HasIndex("StaffID");
 
-                    b.ToTable("OrderDetail");
-                });
+                b.ToTable("OrderDetail");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.Right", b =>
-                {
-                    b.Property<int>("RightID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("RightID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<string>("RightName");
+                b.Property<string>("RightName");
 
-                    b.Property<bool>("Status");
+                b.Property<bool>("Status");
 
-                    b.HasKey("RightID");
+                b.HasKey("RightID");
 
-                    b.ToTable("Right");
-                });
+                b.ToTable("Right");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.StaffRight", b =>
-                {
-                    b.Property<int>("RightID");
+            {
+                b.Property<int>("RightID");
 
-                    b.Property<string>("AccountID");
+                b.Property<string>("AccountID");
 
-                    b.Property<DateTime>("DateGrant");
+                b.Property<DateTime>("DateGrant");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<int?>("RightID1");
+                b.Property<int?>("RightID1");
 
-                    b.Property<bool>("Status");
+                b.Property<bool>("Status");
 
-                    b.HasKey("RightID", "AccountID");
+                b.HasKey("RightID", "AccountID");
 
-                    b.HasIndex("AccountID");
+                b.HasIndex("AccountID");
 
-                    b.HasIndex("RightID1");
+                b.HasIndex("RightID1");
 
-                    b.ToTable("StaffRight");
-                });
+                b.ToTable("StaffRight");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("OrderID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CustomerPhoneID");
+                b.Property<string>("CustomerPhoneID");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<DateTime>("OrderDay");
+                b.Property<DateTime>("OrderDay");
 
-                    b.Property<double>("OrderValueSum");
+                b.Property<double>("OrderValueSum");
 
-                    b.HasKey("OrderID");
+                b.HasKey("OrderID");
 
-                    b.HasIndex("CustomerPhoneID");
+                b.HasIndex("CustomerPhoneID");
 
-                    b.ToTable("Order");
-                });
+                b.ToTable("Order");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Provider", b =>
-                {
-                    b.Property<int>("ProviderID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("ProviderID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Adress");
+                b.Property<string>("Adress");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<string>("Phone");
+                b.Property<string>("Phone");
 
-                    b.Property<string>("ProviderName");
+                b.Property<string>("ProviderName");
 
-                    b.HasKey("ProviderID");
+                b.HasKey("ProviderID");
 
-                    b.ToTable("Provider");
-                });
+                b.ToTable("Provider");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Publisher", b =>
-                {
-                    b.Property<int>("PublisherID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("PublisherID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Adress");
+                b.Property<string>("Adress");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<string>("Phone");
+                b.Property<string>("Phone");
 
-                    b.Property<string>("PublisherName");
+                b.Property<string>("PublisherName");
 
-                    b.HasKey("PublisherID");
+                b.HasKey("PublisherID");
 
-                    b.ToTable("Publisher");
-                });
+                b.ToTable("Publisher");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Receipt", b =>
-                {
-                    b.Property<int>("ReceiptID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("ReceiptID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DayCreateReceipt");
+                b.Property<DateTime>("DayCreateReceipt");
 
-                    b.Property<string>("Describe");
+                b.Property<string>("Describe");
 
-                    b.Property<int>("ProviderID");
+                b.Property<int>("ProviderID");
 
-                    b.Property<double>("ReceiptValueSum");
+                b.Property<double>("ReceiptValueSum");
 
-                    b.HasKey("ReceiptID");
+                b.HasKey("ReceiptID");
 
-                    b.HasIndex("ProviderID");
+                b.HasIndex("ProviderID");
 
-                    b.ToTable("Receipt");
-                });
+                b.ToTable("Receipt");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Staff", b =>
-                {
-                    b.Property<int>("StaffID")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<int>("StaffID")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                b.Property<string>("AccountID");
 
-                    b.Property<DateTime>("Birthday");
+                b.Property<string>("Address");
 
-                    b.Property<string>("Describe");
+                b.Property<DateTime>("Birthday");
 
-                    b.Property<bool>("Gender");
+                b.Property<string>("Describe");
 
-                    b.Property<byte[]>("ImageStaff");
+                b.Property<bool>("Gender");
 
-                    b.Property<string>("PhoneNumber");
+                b.Property<byte[]>("ImageStaff");
 
-                    b.Property<string>("StaffName");
+                b.Property<string>("PhoneNumber");
 
-                    b.Property<bool>("Status");
+                b.Property<string>("StaffName");
 
-                    b.HasKey("StaffID");
+                b.Property<bool>("Status");
 
-                    b.ToTable("Staff");
-                });
+                b.HasKey("StaffID");
+
+                b.HasIndex("AccountID")
+                    .IsUnique();
+
+                b.ToTable("Staff");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Book", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.CustomModels.BookType", "BookType")
-                        .WithMany("Books")
-                        .HasForeignKey("BookTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+            {
+                b.HasOne("BookStoreManagementData.Models.CustomModels.BookType", "BookType")
+                    .WithMany("Books")
+                    .HasForeignKey("BookTypeID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.CustomModels.Category", "Category")
-                        .WithMany("Books")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                b.HasOne("BookStoreManagementData.Models.CustomModels.Category", "Category")
+                    .WithMany("Books")
+                    .HasForeignKey("CategoryID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.Provider")
-                        .WithMany("Books")
-                        .HasForeignKey("ProviderID");
+                b.HasOne("BookStoreManagementData.Models.Provider")
+                    .WithMany("Books")
+                    .HasForeignKey("ProviderID");
 
-                    b.HasOne("BookStoreManagementData.Models.Publisher", "Publisher")
-                        .WithMany()
-                        .HasForeignKey("PublisherID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                b.HasOne("BookStoreManagementData.Models.Publisher", "Publisher")
+                    .WithMany()
+                    .HasForeignKey("PublisherID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.Receipt")
-                        .WithMany("Books")
-                        .HasForeignKey("ReceiptID");
-                });
-
-            modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.Account", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.Staff", "Staff")
-                        .WithMany("Accounts")
-                        .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                b.HasOne("BookStoreManagementData.Models.Receipt")
+                    .WithMany("Books")
+                    .HasForeignKey("ReceiptID");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.BookReceipt", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.Book", "Book")
-                        .WithMany("BookReceipts")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade);
+            {
+                b.HasOne("BookStoreManagementData.Models.Book", "Book")
+                    .WithMany("BookReceipts")
+                    .HasForeignKey("BookID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.Receipt", "Receipt")
-                        .WithMany("BookReceipts")
-                        .HasForeignKey("ReceiptID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                b.HasOne("BookStoreManagementData.Models.Receipt", "Receipt")
+                    .WithMany("BookReceipts")
+                    .HasForeignKey("ReceiptID")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.OrderDetail", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookID1");
+            {
+                b.HasOne("BookStoreManagementData.Models.Book", "Book")
+                    .WithMany()
+                    .HasForeignKey("BookID1");
 
-                    b.HasOne("BookStoreManagementData.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                b.HasOne("BookStoreManagementData.Models.Order", "Order")
+                    .WithMany("OrderDetails")
+                    .HasForeignKey("OrderID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.Staff", "Staff")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                b.HasOne("BookStoreManagementData.Models.Staff", "Staff")
+                    .WithMany("OrderDetails")
+                    .HasForeignKey("StaffID")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.CustomModels.StaffRight", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.CustomModels.Account", "Account")
-                        .WithMany("StaffRights")
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
+            {
+                b.HasOne("BookStoreManagementData.Models.CustomModels.Account", "Account")
+                    .WithMany("StaffRights")
+                    .HasForeignKey("AccountID")
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BookStoreManagementData.Models.CustomModels.Right", "Right")
-                        .WithMany("StaffRights")
-                        .HasForeignKey("RightID1");
-                });
+                b.HasOne("BookStoreManagementData.Models.CustomModels.Right", "Right")
+                    .WithMany("StaffRights")
+                    .HasForeignKey("RightID1");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Order", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerPhoneID");
-                });
+            {
+                b.HasOne("BookStoreManagementData.Models.Customer", "Customer")
+                    .WithMany("Orders")
+                    .HasForeignKey("CustomerPhoneID");
+            });
 
             modelBuilder.Entity("BookStoreManagementData.Models.Receipt", b =>
-                {
-                    b.HasOne("BookStoreManagementData.Models.Provider", "Providers")
-                        .WithMany("Receipts")
-                        .HasForeignKey("ProviderID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+            {
+                b.HasOne("BookStoreManagementData.Models.Provider", "Providers")
+                    .WithMany("Receipts")
+                    .HasForeignKey("ProviderID")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity("BookStoreManagementData.Models.Staff", b =>
+            {
+                b.HasOne("BookStoreManagementData.Models.CustomModels.Account", "Account")
+                    .WithOne("Staff")
+                    .HasForeignKey("BookStoreManagementData.Models.Staff", "AccountID");
+            });
         }
     }
 }

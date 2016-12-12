@@ -11,7 +11,7 @@ namespace BookStoreManagementData.Models
             this.Orders = new HashSet<Order>();
         }
         [Key]
-        [MinLength(9),MaxLength(12)]
+        [MinLength(0),MaxLength(12)]
         public string CustomerPhoneID { get; set; }
         public string CustomerName { get; set; }
         public DateTime DayFirstPurchase { get; set; }
